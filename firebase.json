@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/everail",
     "ignore": [
       "firebase.json",
       "**/.*",
