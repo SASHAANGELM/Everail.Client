@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { 
-  min-height: 100%;
+html, body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+
+.mat-button {
+  &.icon {
+    padding: 0;
+    min-width: 36px;
+  }
+}
+
+.button-group {
+  display: flex;
+
+  .mat-button {
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &:not(:first-child, :last-child) {
+      border-radius: 0;
+    }
+  } 
 }

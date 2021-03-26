@@ -1,0 +1,13 @@
+.menu-button {
+  width: 64px;
+  height: 64px;
+  padding: 0;
+}
+
+.menu-button__icon {
+  @apply text-gray-500;
+}
+
+.menu-button__label {
+  @apply text-xs text-gray-500;
+}
