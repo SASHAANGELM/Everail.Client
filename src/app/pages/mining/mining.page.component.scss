@@ -1,0 +1,7 @@
+.control {
+  @apply h-8 px-2 bg-transparent rounded;
+
+  &:hover {
+    @apply bg-gray-900;
+  }
+}

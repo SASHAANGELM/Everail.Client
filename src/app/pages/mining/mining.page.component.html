@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-gray-900 text-white">
+  <input type="text" [(ngModel)]="minersCount" class="control">
+  <input type="text" [(ngModel)]="orePerSecond" class="control">
+  <input type="text" [(ngModel)]="size" class="control">
+
+  <div>
+    Минут для заполнения трюма: {{ timeToFitFullSize() * 1000 | date:'H:mm:ss':'UTC' }}
+  </div>
+
+  <!-- <table>
+
+    <tr>
+      <th>Название</th>
+      <th>Объем</th>
+      <th>Цена за еденицу</th>
+      <th>Цена за 1 м^3</th>
+      <th>Цена за Полный трюм</th>
+    </tr>
+
+    <tr *ngFor="let oreItem of oreArray" class="">
+      <td>{{ oreItem.name }}</td>
+      <td>{{ oreItem.volume | number:'1.2-2' }}</td>
+      <td>{{ oreItem.price | number:'1.2-2' }}</td>
+      <td>{{ pricePerOneSize(oreItem) | number:'1.2-2' }}</td>
+      <td>{{ pricePerFillSize(oreItem) | number:'1.2-2' }}</td>
+    </tr>
+  </table> -->
+
+  <div class="w-full">
+
+    <div>
+      <div class="flex">
+        <div class="w-1/4"></div>
+        <div class="flex w-3/4">
+          <div class="w-1/4">Название</div>
+          <div class="w-1/4">Цена за еденицу</div>
+          <div class="w-1/4">Цена за 1m^3</div>
+          <div class="w-1/4">Цена за полный трюм</div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let oreGroup of oreGroups" class="bg-gray-800 my-1 px-2 py-1 shadow-lg">
+      <div class="flex items-center">
+        <div class="flex items-center w-1/4">
+          <img [src]="'../../../../assets/images/types/' + oreGroup.image + '_64.png'" alt="">
+          <div class="mr-4">{{ oreGroup.name }}</div>
+          <div>{{ oreGroup.volume | number:'1.2-2' }} m^3</div>
+        </div>
+        <div class="w-3/4">
+          <div *ngFor="let ore of oreGroup.variety" class="flex">
+            <div class="w-1/4">{{ ore.name }}</div>
+            <div class="w-1/4">{{ ore.price | number:'1.2-2' }}</div>
+            <div class="w-1/4">{{ pricePerOneSize(oreGroup, ore) | number:'1.2-2' }}</div>
+            <div class="w-1/4">{{ pricePerFullSize(oreGroup, ore) | number:'1.2-2' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

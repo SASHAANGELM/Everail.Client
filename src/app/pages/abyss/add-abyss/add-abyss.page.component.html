@@ -1,0 +1,231 @@
+<div class="p-4">
+  <div class="flex items-center mb-4 text-3xl">
+    <button mat-button routerLink="/abyss" class="abyss icon">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="ml-4 text-3xl">Добавить вход в бездну</div>
+  </div>
+  
+
+  <div class="my-4">
+    <div class="text-lg">Тип бездны</div>
+    <div class="button-group">
+      <button mat-button [class.active]="type === abyssTypeEnum.Exotic" class="abyss" (click)="type = abyssTypeEnum.Exotic">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47862_32.png'">
+          <div class="ml-2">Exotic</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="type === abyssTypeEnum.Dark" class="abyss" (click)="type = abyssTypeEnum.Dark">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47863_32.png'">
+          <div class="ml-2">Dark</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="type === abyssTypeEnum.Plasma" class="abyss" (click)="type = abyssTypeEnum.Plasma">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47864_32.png'">
+          <div class="ml-2">Plasma</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="type === abyssTypeEnum.Electrical" class="abyss" (click)="type = abyssTypeEnum.Electrical">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47865_32.png'">
+          <div class="ml-2">Electrical</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="type === abyssTypeEnum.Gamma" class="abyss" (click)="type = abyssTypeEnum.Gamma">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47866_32.png'">
+          <div class="ml-2">Gamma</div>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <div class="text-lg">Уровень</div>
+    <div class="button-group">
+      <button mat-button [class.active]="level === 0" class="abyss" (click)="level = 0">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/56133_32.png'">
+          <div class="ml-2">0</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="level === 1" class="abyss" (click)="level = 1">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47761_32.png'">
+          <div class="ml-2">1</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="level === 2" class="abyss" (click)="level = 2">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47888_32.png'">
+          <div class="ml-2">2</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="level === 3" class="abyss" (click)="level = 3">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47889_32.png'">
+          <div class="ml-2">3</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="level === 4" class="abyss" (click)="level = 4">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47890_32.png'">
+          <div class="ml-2">4</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="level === 5" class="abyss" (click)="level = 5">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/47891_32.png'">
+          <div class="ml-2">5</div>
+        </div>
+      </button>
+      <button mat-button [class.active]="level === 6" class="abyss" (click)="level = 6">
+        <div class="flex">
+          <img [src]="'https://imageserver.eveonline.com/Type/56141_32.png'">
+          <div class="ml-2">6</div>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <div class="text-lg">Дополнительный лут</div>
+    <div class="text-gray-500">Укажите сколько добывающих зданий вы залутали кроме основных (0 - 5)</div>
+    <div class="button-group">
+      <button mat-button [class.active]="looted === null" class="abyss" (click)="looted = null">Незнаю</button>
+      <button mat-button [class.active]="looted === 0" class="abyss" (click)="looted = 0">0</button>
+      <button mat-button [class.active]="looted === 1" class="abyss" (click)="looted = 1">1</button>
+      <button mat-button [class.active]="looted === 2" class="abyss" (click)="looted = 2">2</button>
+      <button mat-button [class.active]="looted === 3" class="abyss" (click)="looted = 3">3</button>
+      <button mat-button [class.active]="looted === 4" class="abyss" (click)="looted = 4">4</button>
+      <button mat-button [class.active]="looted === 5" class="abyss" (click)="looted = 5">5</button>
+      <button mat-button [class.active]="looted === 6" class="abyss" (click)="looted = 6">6</button>
+      <button mat-button [class.active]="looted === 7" class="abyss" (click)="looted = 7">7</button>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <div class="text-xl">Цена за вход</div>
+    <div>
+      <span class="text-lg">{{ pricePerEnter | number:'1.2-2' }}</span>
+      <span class="ml-1 text-gray-500">ISK</span>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <div class="text-xl">Ваш инвентарь</div>
+
+    <div class="flex space-x-4">
+      <div class="w-1/2">
+        <div class="text-gray-500">До входа в бездну (необязательно)</div>
+
+        <div *ngIf="itemsBefore.length === 0">
+          <textarea [(ngModel)]="itemsBeforeString" cols="60" rows="6" class="bg-gray-800" (paste)="parseBeforeTextarea($event)"></textarea>
+        </div>
+
+        <div *ngIf="itemsBefore.length > 0">
+          <div>
+            <button mat-button (click)="clearBefore()">Очистить</button>
+          </div>
+    
+          <div class="flex items-center px-2 py-1 my-1 text-gray-500">
+            <div class="w-5/6">Название</div>
+            <div class="w-1/6">Количество</div>
+          </div>
+      
+          <app-item-row *ngFor="let item of itemsBefore" [item]="item"></app-item-row>
+      
+        </div>
+
+      </div>
+      <div class="w-1/2">
+        <div class="text-gray-500">После выхода с бездны</div>
+
+        <div *ngIf="items.length === 0">
+          <textarea [(ngModel)]="itemsString" cols="60" rows="6" class="bg-gray-800" (paste)="parseTextarea($event)"></textarea>
+        </div>
+      
+        <div *ngIf="items.length > 0">
+          <div>
+            <button mat-button (click)="clear()">Очистить</button>
+          </div>
+    
+          <div class="flex items-center px-2 py-1 my-1 text-gray-500">
+            <div class="w-5/6">Название</div>
+            <div class="w-1/6">Количество</div>
+          </div>
+
+          <app-item-row *ngFor="let item of items" [item]="item"></app-item-row>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="my-4">
+    <div class="text-xl">Результат</div>
+
+    <div class="flex space-x-4">
+      <div class="w-1/2">
+        <div class="text-gray-500">Использовано</div>
+
+        <ng-container *ngIf="spend.length > 0">
+          <div class="flex items-center px-2 py-1 my-1 text-gray-500">
+            <div class="w-3/6">Название</div>
+            <div class="w-1/6">Количество</div>
+            <div class="w-1/6">Цена за 1 шт</div>
+            <div class="w-1/6">Цена за все</div>
+          </div>
+
+          <app-item-row *ngFor="let item of spend" [item]="item"></app-item-row>
+        </ng-container>
+      </div>
+      
+      <div class="w-1/2">
+        <div class="text-gray-500">Получено</div>
+
+        <ng-container *ngIf="earn.length > 0">
+          <div class="flex items-center px-2 py-1 my-1 text-gray-500">
+            <div class="w-3/6">Название</div>
+            <div class="w-1/6">Количество</div>
+            <div class="w-1/6">Цена за 1 шт</div>
+            <div class="w-1/6">Цена за все</div>
+          </div>
+  
+          <app-item-row *ngFor="let item of earn" [item]="item"></app-item-row>
+        </ng-container>
+
+
+      </div>
+    </div>
+
+    <div class="flex">
+      <div class="flex justify-end w-1/2">
+        <div class="px-2 py-1 bg-gray-800 rounded-lg">
+          <div class="text-gray-500">Потрачено:</div>
+          <div>
+            <span class="text-lg text-red-500">{{ spendSum | number:'1.2-2' }}</span>
+            <span class="ml-1 text-gray-500">ISK</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end w-1/2">
+        <div class="px-2 py-1 bg-gray-800 rounded-lg">
+          <div class="text-gray-500">Заработано:</div>
+          <div>
+            <span class="text-lg text-green-500">{{ earnSum | number:'1.2-2' }}</span>
+            <span class="ml-1 text-gray-500">ISK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <button mat-raised-button (click)="addAbyss()">Добавить вход в бездну</button>
+  </div>
+</div>

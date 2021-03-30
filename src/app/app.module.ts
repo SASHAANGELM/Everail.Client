@@ -22,7 +22,12 @@ import { AppComponent } from './app.component';
 import { DefaultTemplateComponent } from './templates/default.template/default.template.component';
 
 // Pages
-import { MiningPageComponent } from './pages/mining.page/mining.page.component';
+import { MiningPageComponent } from './pages/mining/mining.page.component';
+import { AbyssPageComponent } from './pages/abyss/abyss.page.component';
+import { AddAbyssPageComponent } from './pages/abyss/add-abyss/add-abyss.page.component';
+
+// Components
+import { ItemRowComponent } from './components/item-row/item-row.component';
 
 @NgModule({
   imports: [
@@ -51,9 +56,12 @@ import { MiningPageComponent } from './pages/mining.page/mining.page.component';
     DefaultTemplateComponent,
 
     // Pages
-    MiningPageComponent
+    MiningPageComponent,
+    AbyssPageComponent,
+    AddAbyssPageComponent,
 
     // Components
+    ItemRowComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
