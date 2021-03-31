@@ -21,9 +21,11 @@ interface AbyssRecord {
   type: AbyssTypeEnum;
   level: number;
   looted: number;
+  time: number;
   spend: Item[];
   earn: Item[];
-  time: number;
+  spendSum?: number;
+  earnSum?: number;
 }
 
 interface Item {
@@ -40,7 +42,9 @@ interface AbyssRecordData extends AbyssRecord {
 interface RecordsByDay {
   time: moment.Moment;
   opened: boolean;
-  records: AbyssRecordData[];
+  records: Array<AbyssRecordData | RecordsByDay>;
+  spendSum?: number;
+  earnSum?: number;
 }
 
 @Component({
@@ -54,11 +58,12 @@ export class AbyssPageComponent implements OnInit {
 
   public records: AbyssRecordData[] = [];
   public recordsByDay: RecordsByDay[] = [];
+  public recordsByMonth: RecordsByDay[] = [];
 
   public get itemsList(): number[] {
     const itemsList = [];
     this.recordsByDay.forEach(day => {
-      day.records.forEach(record => {
+      day.records.forEach((record: AbyssRecordData ) => {
         [...record.spend, ...record.earn].forEach(item => {
           if (!itemsList.includes(item.id)) {
             itemsList.push(item.id);
@@ -76,67 +81,88 @@ export class AbyssPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.getAbysses();
-
-    
-    
-
-    // db.collection('abyss').subscribe((records) => {
-    //   this.recordsByDay = [];
-    //   records.reverse().forEach(record => {
-    //     const recordData = {
-    //       ...record,
-    //       opened: false
-    //     } as AbyssRecordData;
-
-    //     const time = moment(record.time).set('hours', 0).set('minutes', 0).set('seconds', 0).set('milliseconds', 0);
-
-    //     const day = this.recordsByDay.find(day => day.time.isSame(time));
-
-    //     if (day != null) {
-    //       day.records.push(recordData);
-    //     } else {
-    //       this.recordsByDay.push({
-    //         time,
-    //         opened: true,
-    //         records: [recordData]
-    //       });
-    //     }
-    //   });
-    //   this.getItemsPrice(this.itemsList);
-    // });
   }
 
   public getAbysses(): void {
-    this.graphqlService.query('{ abysses { _id, type, level, looted, earn { id, name, count }, spend { id, name, count } } }').subscribe({
+    this.graphqlService.query('{ abysses { _id, type, level, looted, time, earn { id, name, count }, spend { id, name, count } } }').subscribe({
       next: (response) => {
         console.log('query', response.abysses);
-        const records = response.abysses;
-        
-        this.recordsByDay = [];
-        records.reverse().forEach(record => {
-        const recordData = {
-          ...record,
-          opened: false
-        } as AbyssRecordData;
-
-        const time = moment(record.time).set('hours', 0).set('minutes', 0).set('seconds', 0).set('milliseconds', 0);
-
-        const day = this.recordsByDay.find(day => day.time.isSame(time));
-
-        if (day != null) {
-          day.records.push(recordData);
-        } else {
-          this.recordsByDay.push({
-            time,
-            opened: true,
-            records: [recordData]
-          });
-        }
-      });
-      this.getItemsPrice(this.itemsList);
+        this.records = response.abysses.map(record => {
+          return {
+            ...record,
+            spendSum: 0,
+            earnSum: 0,
+          };
+        });
+        this.groupAbysses();
+        this.getItemsPrice(this.itemsList);
       }
+    });
+  }
+
+  public groupAbysses() {
+    this.recordsByDay = [];
+    this.recordsByMonth = [];
+    const records = [...this.records];
+    records.reverse().forEach(record => {
+      const recordData = {
+        ...record,
+        opened: false
+      } as AbyssRecordData;
+
+      const time = moment(record.time).set('hours', 0).set('minutes', 0).set('seconds', 0).set('milliseconds', 0);
+
+      const day = this.recordsByDay.find(day => day.time.isSame(time));
+
+      if (day != null) {
+        day.records.push(recordData);
+      } else {
+        this.recordsByDay.push({
+          time,
+          opened: true,
+          spendSum: 0,
+          earnSum: 0,
+          records: [recordData]
+        });
+      }
+    });
+    // Calculate earn and spend sum per day
+    this.recordsByDay.forEach(recordsByDay => {
+      recordsByDay.records.forEach(record => {
+        const spend = record.spendSum ?? 0;
+        const earn = record.earnSum ?? 0;
+        recordsByDay.spendSum += spend;
+        recordsByDay.earnSum += earn;
+      });
+    });
+
+    // Group by month
+    this.recordsByDay.forEach(recordsByDay => {
+      const time = moment(recordsByDay.time).set('date', 1);
+
+      const month = this.recordsByMonth.find(month => month.time.isSame(time));
+      if (month != null) {
+        month.records.push(recordsByDay);
+      } else {
+        this.recordsByMonth.push({
+          time,
+          opened: true,
+          spendSum: 0,
+          earnSum: 0,
+          records: [recordsByDay]
+        });
+      }
+    });
+
+    // Calculate earn and spend sum per month
+    this.recordsByMonth.forEach(recordsByMonth => {
+      recordsByMonth.records.forEach(recordsByDay => {
+        const spend = recordsByDay.spendSum ?? 0;
+        const earn = recordsByDay.earnSum ?? 0;
+        recordsByMonth.spendSum += spend;
+        recordsByMonth.earnSum += earn;
+      });
     });
   }
 
@@ -152,13 +178,22 @@ export class AbyssPageComponent implements OnInit {
         }
 
         this.records.forEach(record => {
+          let sum = 0;
           record.spend.forEach(item => {
             item.price = this.itemsPrice[item.id].sell;
+            sum += item.price * item.count;
           });
+          record.spendSum = sum;
+
+          sum = 0;
           record.earn.forEach(item => {
             item.price = this.itemsPrice[item.id].buy;
+            sum += item.price * item.count;
           });
-        })
+          record.earnSum = sum;
+        });
+        this.groupAbysses();
+        // console.log('this.records', this.records)
       }
     });
   }
