@@ -24,17 +24,43 @@ button {
 .button-group {
   display: flex;
 
-  .mat-button {
-    &:first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
+  &.group-vertical {
+    flex-direction: column;
+
+    .mat-button {
+      &:first-child {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      &:last-child {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      &:not(:first-child, :last-child) {
+        border-radius: 0;
+      }
     }
-    &:last-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-    &:not(:first-child, :last-child) {
-      border-radius: 0;
-    }
-  } 
+  }
+
+  &:not(.group-vertical) {
+
+    
+    .mat-button {
+      &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      &:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      &:not(:first-child, :last-child) {
+        border-radius: 0;
+      }
+    } 
+  }
+}
+
+.btn-green {
+  @apply bg-green-500 bg-opacity-25 text-green-500;
 }

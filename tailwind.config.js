@@ -12,6 +12,12 @@ module.exports = {
         orange: colors.orange,
         amber: colors.amber,
         yellow: colors.yellow
+      },
+      rotate: {
+        '-30': '-30deg',
+        '-20': '-20deg',
+        '20': '20deg',
+        '30': '30deg',
       }
     },
   },

@@ -93,17 +93,38 @@
 
   <div class="my-4">
     <div class="text-lg">Дополнительный лут</div>
-    <div class="text-gray-500">Укажите сколько добывающих зданий вы залутали кроме основных (0 - 5)</div>
-    <div class="button-group">
-      <button mat-button [class.active]="looted === null" class="abyss" (click)="looted = null">Незнаю</button>
-      <button mat-button [class.active]="looted === 0" class="abyss" (click)="looted = 0">0</button>
-      <button mat-button [class.active]="looted === 1" class="abyss" (click)="looted = 1">1</button>
-      <button mat-button [class.active]="looted === 2" class="abyss" (click)="looted = 2">2</button>
-      <button mat-button [class.active]="looted === 3" class="abyss" (click)="looted = 3">3</button>
-      <button mat-button [class.active]="looted === 4" class="abyss" (click)="looted = 4">4</button>
-      <button mat-button [class.active]="looted === 5" class="abyss" (click)="looted = 5">5</button>
-      <button mat-button [class.active]="looted === 6" class="abyss" (click)="looted = 6">6</button>
-      <button mat-button [class.active]="looted === 7" class="abyss" (click)="looted = 7">7</button>
+    <div class="text-gray-500">Укажите сколько обломков удалось залутать</div>
+    <div class="flex space-x-4">
+      <div>
+        <div class="text-gray-500 text-sm">Первая комната</div>
+        <div class="button-group group-vertical">
+          <button mat-button [class.active]="loot.first === 1" class="abyss" (click)="loot.first = 1">1</button>
+          <button mat-button [class.active]="loot.first === 2" class="abyss" (click)="loot.first = 2">2</button>
+          <button mat-button [class.active]="loot.first === 3" class="abyss" (click)="loot.first = 3">3</button>
+          <button mat-button [class.active]="loot.first === 4" class="abyss" (click)="loot.first = 4">4</button>
+          <button mat-button [class.active]="loot.first === 5" class="abyss" (click)="loot.first = 5">5</button>
+        </div>
+      </div>
+      <div>
+        <div class="text-gray-500 text-sm">Вторая комната</div>
+        <div class="button-group group-vertical">
+          <button mat-button [class.active]="loot.second === 1" class="abyss" (click)="loot.second = 1">1</button>
+          <button mat-button [class.active]="loot.second === 2" class="abyss" (click)="loot.second = 2">2</button>
+          <button mat-button [class.active]="loot.second === 3" class="abyss" (click)="loot.second = 3">3</button>
+          <button mat-button [class.active]="loot.second === 4" class="abyss" (click)="loot.second = 4">4</button>
+          <button mat-button [class.active]="loot.second === 5" class="abyss" (click)="loot.second = 5">5</button>
+        </div>
+      </div>
+      <div>
+        <div class="text-gray-500 text-sm">Третья комната</div>
+        <div class="button-group group-vertical">
+          <button mat-button [class.active]="loot.third === 1" class="abyss" (click)="loot.third = 1">1</button>
+          <button mat-button [class.active]="loot.third === 2" class="abyss" (click)="loot.third = 2">2</button>
+          <button mat-button [class.active]="loot.third === 3" class="abyss" (click)="loot.third = 3">3</button>
+          <button mat-button [class.active]="loot.third === 4" class="abyss" (click)="loot.third = 4">4</button>
+          <button mat-button [class.active]="loot.third === 5" class="abyss" (click)="loot.third = 5">5</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -226,6 +247,6 @@
   </div>
 
   <div>
-    <button mat-raised-button (click)="addAbyss()">Добавить вход в бездну</button>
+    <button mat-raised-button class="btn-green" (click)="addAbyss()">Добавить вход в бездну</button>
   </div>
 </div>

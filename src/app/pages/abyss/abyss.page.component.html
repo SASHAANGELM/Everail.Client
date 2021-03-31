@@ -1,7 +1,7 @@
 <div class="p-4">
   <div class="text-xl">Бездны</div>
 
-  <button routerLink="/abyss/add" class="py-1 px-2 bg-green-500 bg-opacity-10 hover:bg-opacity-20  border border-green-500 border-opacity-10 rounded text-green-500 text-opacity-75 hover:text-opacity-100">Добавить вылазку</button>
+  <button mat-button routerLink="/abyss/add" class="btn-green">Добавить вход в бездну</button>
 
   <div>
     <div *ngFor="let month of recordsByMonth" class="my-3">
@@ -57,37 +57,52 @@
       
           <div *ngIf="day.opened">
             <div *ngFor="let record of day.records" class="my-1">
-              <div class="flex space-x-4 px-2 py-1 bg-gray-800 rounded">
-                <button mat-button class="icon" (click)="record.opened = !record.opened">
+              <div class="flex bg-gray-800 rounded">
+                <button mat-button class="icon w-10 h-10" (click)="record.opened = !record.opened">
                   <i *ngIf="!record.opened" class="fas fa-arrow-down"></i>
                   <i *ngIf="record.opened" class="fas fa-arrow-up"></i>
                 </button>
-                <img [src]="getAbyssTypeImage(record.type)">
-                <img [src]="getAbyssLevelImage(record.level)">
-                <div class="">
-                  <div class="mr-2 text-gray-500">Level:</div>  
-                  <div class="flex space-x-1">
-                    <div *ngFor="let level of [].constructor(record.level)" class="h-2 w-2 bg-orange-500 rounded"></div>
-                    <div *ngFor="let level of [].constructor(6 - record.level)" class="h-2 w-2 bg-gray-500 rounded"></div>
+                <div class="flex items-center space-x-4">
+                  <img [src]="getAbyssTypeImage(record.type)" [title]="record.type" class="w-8 h-8">
+                  <img [src]="getAbyssLevelImage(record.level)" [title]="record.level" class="w-8 h-8">
+                  <div class="">
+                    <div class="flex items-center">
+                      <div class="text-gray-500 text-xs leading-none">Level:</div>
+                      <div class="ml-1 text-orange-500 text-xl leading-none">{{ record.level }}</div>
+                    </div>  
+                    <div class="flex space-x-1">
+                      <div *ngFor="let level of [].constructor(record.level)" class="h-1 w-3 bg-orange-500 rounded"></div>
+                      <div *ngFor="let level of [].constructor(6 - record.level)" class="h-1 w-3 bg-gray-500 rounded"></div>
+                    </div>
                   </div>
-                </div>
-                <div class="">
-                  <div class="mr-2 text-gray-500">Looted:</div>
-                  <div class="flex space-x-1">
-                    <div *ngFor="let level of [].constructor(record.looted)" class="h-2 w-2 bg-green-500 rounded"></div>
-                    <div *ngFor="let level of [].constructor(7 - record.looted)" class="h-2 w-2 bg-gray-500 rounded"></div>
+                  <div class="">
+                    <div class="flex items-center">
+                      <div class="text-gray-500 text-xs leading-none">Looted:</div>
+                      <div class="ml-1 text-green-500 text-xl leading-none">{{ record.loot.first + record.loot.second + record.loot.third }}</div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <div class="flex space-x-1">
+                        <div *ngFor="let level of [].constructor(record.loot.first)" class="h-1 w-1 bg-green-500 rounded"></div>
+                      </div>
+                      <div class="flex space-x-1">
+                        <div *ngFor="let level of [].constructor(record.loot.second)" class="h-1 w-1 bg-green-500 rounded"></div>
+                      </div>
+                      <div class="flex space-x-1">
+                        <div *ngFor="let level of [].constructor(record.loot.third)" class="h-1 w-1 bg-green-500 rounded"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="flex-1 flex justify-end items-center space-x-8">
                   <div>
-                    <div class="text-gray-500 leading-none">Цена за вход</div>
+                    <div class="text-gray-500 leading-none">Использовано</div>
                     <div>
                       <span class="text-lg text-red-500 leading-none">{{ record.spendSum | number:'1.2-2' }}</span>
                       <span class="ml-1 text-gray-500 leading-none">ISK</span>
                     </div>
                   </div>
                   <div>
-                    <div class="text-gray-500 leading-none">Цена за лут</div>
+                    <div class="text-gray-500 leading-none">Получено</div>
                     <div>
                       <span class="text-lg text-green-500 leading-none">{{ record.earnSum | number:'1.2-2' }}</span>
                       <span class="ml-1 text-gray-500 leading-none">ISK</span>
@@ -103,7 +118,7 @@
                 </div>
                 <div class="text-gray-500">{{ record.time | date:'medium' }}</div>
                 <div>
-                  <button mat-button class="icon" (click)="deleteRecord(record)">
+                  <button mat-button class="icon w-10 h-10" (click)="deleteRecord(record)">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
@@ -112,11 +127,11 @@
         
                 <div class="flex space-x-4 mt-2">
                   <div class="w-1/2">
-                    <div class="text-gray-500">Потрачено</div>
+                    <div class="text-gray-500">Использовано</div>
                     <app-item-row *ngFor="let item of record.spend" [item]="item" class="bg-gray-900"></app-item-row>
                   </div>
                   <div class="w-1/2">
-                    <div class="text-gray-500">Заработано</div>
+                    <div class="text-gray-500">Получено</div>
                     <app-item-row *ngFor="let item of record.earn" [item]="item" class="bg-gray-900"></app-item-row>
                   </div>
                 </div>

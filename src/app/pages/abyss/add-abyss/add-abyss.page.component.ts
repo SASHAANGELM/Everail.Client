@@ -17,7 +17,11 @@ export class AddAbyssPageComponent implements OnInit {
   public abyssTypeEnum = AbyssTypeEnum;
   public type: AbyssTypeEnum = AbyssTypeEnum.Exotic;
   public level = 0;
-  public looted = null;
+  public loot = {
+    first: 1,
+    second: 1,
+    third: 1
+  };
 
 
   public itemsBeforeString = '';
@@ -140,6 +144,8 @@ export class AddAbyssPageComponent implements OnInit {
   }
 
   public addAbyss() {
+    
+
     const earn = this.earn.map(item => {
       return `{ id: ${item.id}, name: "${item.name}", count: ${item.count} }`;
     });
@@ -158,8 +164,8 @@ export class AddAbyssPageComponent implements OnInit {
       `input: {
         type: "${ this.type }"
         level: ${ this.level }
-        looted: ${ this.looted },
         time: ${ Date.now() }
+        loot: { first: ${ this.loot.first }, second: ${ this.loot.second }, third: ${ this.loot.third } },
         earn: [${ earnString }]
         spend: [${ spendString }]
       }`,

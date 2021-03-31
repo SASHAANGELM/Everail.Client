@@ -20,8 +20,12 @@ interface AbyssRecord {
   _updated: number;
   type: AbyssTypeEnum;
   level: number;
-  looted: number;
   time: number;
+  loot: {
+    first: number;
+    second: number;
+    third: number;
+  };
   spend: Item[];
   earn: Item[];
   spendSum?: number;
@@ -85,7 +89,7 @@ export class AbyssPageComponent implements OnInit {
   }
 
   public getAbysses(): void {
-    this.graphqlService.query('{ abysses { _id, type, level, looted, time, earn { id, name, count }, spend { id, name, count } } }').subscribe({
+    this.graphqlService.query('{ abysses { _id, type, level, time, loot { first, second, third }, earn { id, name, count }, spend { id, name, count } } }').subscribe({
       next: (response) => {
         console.log('query', response.abysses);
         this.records = response.abysses.map(record => {
