@@ -142,32 +142,16 @@ export class AddAbyssPageComponent implements OnInit {
   public addAbyss() {
     const earn = this.earn.map(item => {
       return `{ id: ${item.id}, name: "${item.name}", count: ${item.count} }`;
-      // return {
-      //   id: item.id,
-      //   name: item.name,
-      //   count: item.count
-      // };
     });
     const spend = this.spend.map(item => {
       return `{ id: ${item.id}, name: "${item.name}", count: ${item.count} }`;
-      // return {
-      //   id: item.id,
-      //   name: item.name,
-      //   count: item.count
-      // };
     });
 
     const earnString = earn.join(', ');
-    const spendString = earn.join(', ');
+    const spendString = spend.join(', ');
 
-    // db.collection('abyss').create({
-    //   type: this.type,
-    //   level: this.level,
-    //   looted: this.looted,
-    //   earn,
-    //   spend,
-    //   time: Date.now()
-    // });
+    console.log('earnString', earnString)
+    console.log('spendString', spendString)
 
     this.graphqlService.mutation(
       'createAbyss', 
