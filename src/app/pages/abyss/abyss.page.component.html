@@ -30,7 +30,7 @@
       </div>
 
       <div *ngIf="month.opened">
-        <div *ngFor="let day of recordsByDay" class="my-3">
+        <div *ngFor="let day of month.records" class="my-3">
           <div class="flex justify-between items-center">
             <div class="flex items-center">
               <button mat-button class="icon" (click)="day.opened = !day.opened">

@@ -67,14 +67,14 @@ export class AddAbyssPageComponent implements OnInit {
     // })
   }
 
-  public parseBeforeTextarea(event) {
+  public parseBeforeTextarea(event: ClipboardEvent) {
     const string = event.clipboardData.getData('text');
-    this.itemsBefore = this.itemsService.parseItemsFromString(string);
+    this.itemsBefore = this.itemsService.parseItemsFromInventory(string);
     this.calculateDifferense();
   }
-  public parseTextarea(event) {
+  public parseTextarea(event: ClipboardEvent) {
     const string = event.clipboardData.getData('text');
-    this.items = this.itemsService.parseItemsFromString(string);
+    this.items = this.itemsService.parseItemsFromInventory(string);
     this.calculateDifferense();
   }
 

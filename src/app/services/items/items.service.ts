@@ -77,9 +77,8 @@ export class ItemsService {
     })?.name;
   }
 
-  public parseItemsFromString(string: string): Item[] {
+  public parseItemsFromInventory(string: string): Item[] {
     const rows = string.split('\n');
-    console.log('rows', rows);
     const items: Item[] = [];
     rows.forEach(row => {
       console.log('row', row.split('\t'));
@@ -104,6 +103,16 @@ export class ItemsService {
     return items;
   }
 
+  public parseItemsFromTradeTable(string: string): { count: number, price: number } {
+    let [a, b, c] = string.split('\t');
+    const count = Number(b.replace(/[  ]*/g, ''));
+    const price = parseFloat(c.replace(/[  ]*/g, ''));
+    return {
+      count,
+      price
+    };
+  }
+
   public getIdsFromItems(items: Item[]): number[] {
     return items.map(item => item.id);
   }
@@ -121,6 +130,4 @@ export class ItemsService {
   public getPricesByIds(ids: number[]): Observable<EveMarketerPriceResponse[]> {
     return this.getPrices(ids);
   }
-
-  
 }

@@ -28,6 +28,7 @@ import { AddAbyssPageComponent } from './pages/abyss/add-abyss/add-abyss.page.co
 
 // Components
 import { ItemRowComponent } from './components/item-row/item-row.component';
+import { TradePageComponent } from './pages/trade/trade.page.component';
 
 @NgModule({
   imports: [
@@ -59,9 +60,11 @@ import { ItemRowComponent } from './components/item-row/item-row.component';
     MiningPageComponent,
     AbyssPageComponent,
     AddAbyssPageComponent,
+    TradePageComponent,
 
     // Components
     ItemRowComponent,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
